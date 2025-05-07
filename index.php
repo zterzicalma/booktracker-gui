@@ -58,8 +58,8 @@
   <table id="book-table">
     <thead>
       <tr>
-        <th>ISBN</th>
         <th>Cover</th>
+        <th>ISBN</th>
         <th>Title</th>
         <th>Author</th>
         <th>Year Published</th>
