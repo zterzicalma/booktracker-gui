@@ -46,17 +46,20 @@ $s3 = new S3Client([
   ]
 ]);
 
-try {
-  $s3->putObject([
-    'Bucket' => $bucket,
-    'Key'    => "images/$isbn.png",
-    'SourceFile' => $_FILES['cover']['tmp_name'],
-    'ContentType' => 'image/png',
-    'ACL'    => 'public-read' // če želiš, da je javno dostopna
-  ]);
-} catch (AwsException $e) {
-  die('Napaka pri nalaganju slike v S3: ' . $e->getMessage());
-}
+echo "slika ni bila naložena, test uspešen";
+exit;
+
+// try {
+//   $s3->putObject([
+//     'Bucket' => $bucket,
+//     'Key'    => "images/$isbn.png",
+//     'SourceFile' => $_FILES['cover']['tmp_name'],
+//     'ContentType' => 'image/png',
+//     'ACL'    => 'public-read' // če želiš, da je javno dostopna
+//   ]);
+// } catch (AwsException $e) {
+//   die('Napaka pri nalaganju slike v S3: ' . $e->getMessage());
+// }
 
 $data = [
     'isbn' => $isbn,
