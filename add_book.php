@@ -7,10 +7,10 @@ use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 
 // Nastavitve S3
-$bucket = 'book-tracker-images-zigat';
-$region = 'eu-central-1';
-$key = 'YOUR_AWS_ACCESS_KEY';
-$secret = 'YOUR_AWS_SECRET_KEY';
+$env = parse_ini_file(__DIR__ . '/.env');
+$key = $env['AWS_ACCESS_KEY'];
+$secret = $env['AWS_SECRET_KEY'];
+
 
 // 1. Preveri, da so podatki prisotni
 if (!isset($_POST['isbn'], $_POST['title'], $_POST['author'], $_FILES['cover'])) {
