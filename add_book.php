@@ -50,19 +50,6 @@ echo "slika ni bila naložena, test uspešen";
 // exit;
 
  try {
-    if (!isset($_FILES['cover'])) {
-        die("❌ Datoteka ni bila poslana.");
-      }
-      
-      if ($_FILES['cover']['error'] !== UPLOAD_ERR_OK) {
-        die("❌ Napaka pri nalaganju datoteke: " . $_FILES['cover']['error']);
-      }
-      
-      if (!is_uploaded_file($_FILES['cover']['tmp_name'])) {
-        die("❌ Ni veljavna naložena datoteka.");
-      }     
-
-
    $s3->putObject([
      'Bucket' => $bucket,
      'Key'    => "images/$isbn.png",
@@ -85,11 +72,12 @@ $data = [
       'header'  => "Content-Type: application/json",
       'method'  => 'POST',
       'content' => json_encode($data)
+      'timeout' => 5
     ]
   ];
   $context  = stream_context_create($options);
   $result = file_get_contents('http://3.68.98.183/api/add.php', false, $context);  
-  
+
   if ($result === FALSE) {
     echo "Napaka pri klicu API-ja.";
   } else {
