@@ -3,7 +3,7 @@ db_start();
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL & ~E_DEPRECATED & ~E_WARNING);
+error_reporting(E_ALL);
 
 require '../api/config.php'; // uporablja isto DB povezavo
 
@@ -72,7 +72,8 @@ $data = [
   if (isset($response['error'])) {
       echo "❌ Napaka: " . $response['error'];
   } else {
-      header('Location: /');
+    //   header('Location: /');
+      echo "✅ Vse uspešno zaključeno!";
       db_end_clean();
       exit;
   }
