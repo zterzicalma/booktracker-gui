@@ -64,20 +64,19 @@ $data = [
     'year_published' => $year
   ];
   
-  $options = [
-    'http' => [
-      'header'  => "Content-Type: application/json",
-      'method'  => 'POST',
-      'content' => json_encode($data),
-      'timeout' => 5
-    ]
-  ];
-  $context  = stream_context_create($options);
-  $result = file_get_contents('http://3.68.98.183/api/add.php', false, $context);  
-
-  if ($result === FALSE) {
-    echo "Napaka pri klicu API-ja.";
+  $ch = curl_init('http://3.68.98.183/api/add.php');
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+  curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+  curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+  $result = curl_exec($ch);
+  $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+  curl_close($ch);
+  
+  if ($httpCode !== 200) {
+    echo "Napaka pri klicu API-ja: HTTP $httpCode";
   } else {
-    header('Location: /'); // preusmeritev na glavno stran
+    header('Location: /');
     exit;
   }
+  
