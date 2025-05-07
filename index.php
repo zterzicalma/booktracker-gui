@@ -66,7 +66,7 @@
   <script>
     window.addEventListener('DOMContentLoaded', async () => {
       try {
-        const response = await fetch('/booktracker/api/index.php');
+        const response = await fetch('/api/index.php');
         const books = await response.json();
 
         const tbody = document.querySelector('#book-table tbody');
