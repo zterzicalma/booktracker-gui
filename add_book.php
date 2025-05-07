@@ -46,9 +46,6 @@ $s3 = new S3Client([
   ]
 ]);
 
-echo "slika ni bila naložena, test uspešen";
-// exit;
-
  try {
    $s3->putObject([
      'Bucket' => $bucket,
@@ -71,7 +68,7 @@ $data = [
     'http' => [
       'header'  => "Content-Type: application/json",
       'method'  => 'POST',
-      'content' => json_encode($data)
+      'content' => json_encode($data),
       'timeout' => 5
     ]
   ];
