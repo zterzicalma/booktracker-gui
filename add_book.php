@@ -70,12 +70,9 @@ $data = [
   $response = dodajKnjigo($data, $pdo);
   
   if (isset($response['error'])) {
-      echo "❌ Napaka: " . $response['error'];
+      echo "Napaka: " . $response['error'];
   } else {
-
-    echo "<h2>Knjiga je bila uspešno dodana!</h2>";
-    echo "<a href='/'>Nazaj na seznam</a>";
-    
+    header('Location: /');
     ob_end_clean();
     exit;
   }
