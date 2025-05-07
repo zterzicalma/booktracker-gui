@@ -47,7 +47,7 @@ $s3 = new S3Client([
 ]);
 
 echo "slika ni bila naložena, test uspešen";
-exit;
+// exit;
 
  try {
     if (!isset($_FILES['cover'])) {
