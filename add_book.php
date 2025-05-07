@@ -13,7 +13,9 @@ use Aws\Exception\AwsException;
 
 // Nastavitve S3
 $env = parse_ini_file(__DIR__ . '/.env');
-$key = $env['AWS_ACCESS_KEY'];
+$region = $env['AWS_REGION'];
+$bucket = $env['S3_BUCKET'];
+$key    = $env['AWS_ACCESS_KEY'];
 $secret = $env['AWS_SECRET_KEY'];
 
 //var_dump($env);
