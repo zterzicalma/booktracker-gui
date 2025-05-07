@@ -78,5 +78,6 @@ $data = [
   if ($result === FALSE) {
     echo "Napaka pri klicu API-ja.";
   } else {
-    echo "Knjiga uspešno dodana! <a href='/'>Nazaj</a>";
+    header('Location: /'); // preusmeritev na glavno stran
+    exit;
   }
