@@ -72,10 +72,12 @@ $data = [
   if (isset($response['error'])) {
       echo "❌ Napaka: " . $response['error'];
   } else {
-    //   header('Location: /');
-      echo "✅ Vse uspešno zaključeno!";
-      ob_end_clean();
-      exit;
+
+    echo "<h2>Knjiga je bila uspešno dodana!</h2>";
+    echo "<a href='/'>Nazaj na seznam</a>";
+    
+    ob_end_clean();
+    exit;
   }
   
   exit;
