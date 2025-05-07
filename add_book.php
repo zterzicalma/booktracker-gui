@@ -2,7 +2,7 @@
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_WARNING);
 
 require '../api/config.php'; // uporablja isto DB povezavo
 
@@ -49,17 +49,30 @@ $s3 = new S3Client([
 echo "slika ni bila naložena, test uspešen";
 exit;
 
-// try {
-//   $s3->putObject([
-//     'Bucket' => $bucket,
-//     'Key'    => "images/$isbn.png",
-//     'SourceFile' => $_FILES['cover']['tmp_name'],
-//     'ContentType' => 'image/png',
-//     'ACL'    => 'public-read' // če želiš, da je javno dostopna
-//   ]);
-// } catch (AwsException $e) {
-//   die('Napaka pri nalaganju slike v S3: ' . $e->getMessage());
-// }
+ try {
+    if (!isset($_FILES['cover'])) {
+        die("❌ Datoteka ni bila poslana.");
+      }
+      
+      if ($_FILES['cover']['error'] !== UPLOAD_ERR_OK) {
+        die("❌ Napaka pri nalaganju datoteke: " . $_FILES['cover']['error']);
+      }
+      
+      if (!is_uploaded_file($_FILES['cover']['tmp_name'])) {
+        die("❌ Ni veljavna naložena datoteka.");
+      }     
+
+
+   $s3->putObject([
+     'Bucket' => $bucket,
+     'Key'    => "images/$isbn.png",
+     'SourceFile' => $_FILES['cover']['tmp_name'],
+     'ContentType' => 'image/png',
+     'ACL'    => 'public-read' // če želiš, da je javno dostopna
+   ]);
+ } catch (AwsException $e) {
+   die('Napaka pri nalaganju slike v S3: ' . $e->getMessage());
+ }
 
 $data = [
     'isbn' => $isbn,
