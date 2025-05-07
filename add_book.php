@@ -1,5 +1,5 @@
 <?php
-db_start();
+ob_start();
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -74,7 +74,7 @@ $data = [
   } else {
     //   header('Location: /');
       echo "✅ Vse uspešno zaključeno!";
-      db_end_clean();
+      ob_end_clean();
       exit;
   }
   
