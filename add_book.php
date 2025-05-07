@@ -58,11 +58,25 @@ try {
   die('Napaka pri nalaganju slike v S3: ' . $e->getMessage());
 }
 
-// 3. Vpiši knjigo v bazo
-try {
-  $stmt = $pdo->prepare("INSERT INTO books (isbn, title, author, year_published) VALUES (?, ?, ?, ?)");
-  $stmt->execute([$isbn, $title, $author, $year]);
-  echo "Knjiga uspešno dodana! <a href='/'>Nazaj</a>";
-} catch (PDOException $e) {
-  echo "Napaka pri shranjevanju knjige: " . $e->getMessage();
-}
+$data = [
+    'isbn' => $isbn,
+    'title' => $title,
+    'author' => $author,
+    'year_published' => $year
+  ];
+  
+  $options = [
+    'http' => [
+      'header'  => "Content-Type: application/json",
+      'method'  => 'POST',
+      'content' => json_encode($data)
+    ]
+  ];
+  $context  = stream_context_create($options);
+  $result = file_get_contents('http://localhost/api/add.php', false, $context);
+  
+  if ($result === FALSE) {
+    echo "Napaka pri klicu API-ja.";
+  } else {
+    echo "Knjiga uspešno dodana! <a href='/'>Nazaj</a>";
+  }
