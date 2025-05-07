@@ -64,15 +64,21 @@ $data = [
     'year_published' => $year
   ];
   
-  $ch = curl_init('http://3.68.98.183/api/add.php');
+  $ch = curl_init('http://10.0.0.245/api/add.php');
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
   curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
   curl_setopt($ch, CURLOPT_TIMEOUT, 5);
   $result = curl_exec($ch);
   $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+  if ($result === false) {
+    $error = curl_error($ch);
+    echo "❌ CURL napaka: $error";
+}
   curl_close($ch);
   
+
+
   if ($httpCode !== 200) {
     echo "Napaka pri klicu API-ja: HTTP $httpCode";
   } else {
