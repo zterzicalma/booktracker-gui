@@ -16,6 +16,8 @@ $env = parse_ini_file(__DIR__ . '/.env');
 $key = $env['AWS_ACCESS_KEY'];
 $secret = $env['AWS_SECRET_KEY'];
 
+var_dump($env);
+exit;
 
 // 1. Preveri, da so podatki prisotni
 if (!isset($_POST['isbn'], $_POST['title'], $_POST['author'], $_FILES['cover'])) {
