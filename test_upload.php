@@ -31,7 +31,6 @@ try {
     'Key'    => 'images/test-file.png',
     'SourceFile' => $tmpFile,
     'ContentType' => 'image/png',
-    'ACL'    => 'public-read'
   ]);
   echo "✅ Testna slika uspešno naložena v S3!";
 } catch (Exception $e) {
