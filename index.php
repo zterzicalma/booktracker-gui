@@ -55,6 +55,9 @@
     <h2>by Žiga Terzič</h2>
   </div>
 
+  <button onclick="openAddBookModal()">Dodaj knjigo</button>
+
+
   <table id="book-table">
     <thead>
       <tr>
@@ -109,6 +112,40 @@
   function closeModal() {
     document.getElementById('image-modal').style.display = 'none';
   }
+</script>
+
+<!-- Modal za dodajanje knjige -->
+<div id="add-book-modal" style="display:none; position:fixed; z-index:9999; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6);">
+  <div style="background:#fff; max-width:500px; margin:5% auto; padding:20px; border-radius:8px; position:relative;">
+    <span onclick="closeAddBookModal()" style="position:absolute; top:10px; right:15px; font-size:24px; cursor:pointer;">&times;</span>
+    <h2>Dodaj knjigo</h2>
+    <form action="add_book.php" method="POST" enctype="multipart/form-data">
+      <label>ISBN:<br><input type="text" name="isbn" required></label><br><br>
+      <label>Naslov:<br><input type="text" name="title" required></label><br><br>
+      <label>Avtor:<br><input type="text" name="author" required></label><br><br>
+      <label>Leto izida:<br><input type="number" name="year"></label><br><br>
+      <label>Platnica (PNG):<br><input type="file" name="cover" accept="image/png" required></label><br><br>
+      <button type="submit">Shrani knjigo</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  function openAddBookModal() {
+    document.getElementById('add-book-modal').style.display = 'block';
+  }
+
+  function closeAddBookModal() {
+    document.getElementById('add-book-modal').style.display = 'none';
+  }
+
+  // Zapri modal, če uporabnik klikne izven obrazca
+  window.onclick = function(event) {
+    const modal = document.getElementById('add-book-modal');
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
 </script>
 
 </body>
