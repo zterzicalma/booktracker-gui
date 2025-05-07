@@ -64,25 +64,14 @@ $data = [
     'year_published' => $year
   ];
   
-  $ch = curl_init('http://10.0.0.245/api/add.php');
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-  curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-  curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-  $result = curl_exec($ch);
-  $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-  if ($result === false) {
-    $error = curl_error($ch);
-    echo "❌ CURL napaka: $error";
-}
-  curl_close($ch);
+  require '../api/functions.php';
+
+  $response = dodajKnjigo($data, $pdo);
   
-
-
-  if ($httpCode !== 200) {
-    echo "Napaka pri klicu API-ja: HTTP $httpCode";
+  if (isset($response['error'])) {
+      echo "❌ Napaka: " . $response['error'];
   } else {
-    header('Location: /');
-    exit;
+      header('Location: /');
+      exit;
   }
   
