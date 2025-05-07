@@ -88,7 +88,7 @@ $data = [
     ]
   ];
   $context  = stream_context_create($options);
-  $result = file_get_contents('http://localhost/api/add.php', false, $context);
+  $result = file_get_contents('http://3.68.98.183/api/add.php', false, $context);  
   
   if ($result === FALSE) {
     echo "Napaka pri klicu API-ja.";
